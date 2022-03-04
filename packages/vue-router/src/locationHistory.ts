@@ -91,6 +91,7 @@ export const createLocationHistory = () => {
       tabsHistory[key] = [];
     });
   }
+
   const getTabsHistory = (tab: string): RouteInfo[] => {
     let history;
     if (tab) {
@@ -131,7 +132,9 @@ export const createLocationHistory = () => {
     const index = currentHistory - initialHistory;
     return locationHistory[index] || last();
   }
+
   const previous = () => locationHistory[locationHistory.length - 2] || last();
+
   const last = () => locationHistory[locationHistory.length - 1];
 
   /**
@@ -159,6 +162,18 @@ export const createLocationHistory = () => {
     if (tabHistory) {
       return tabHistory[tabHistory.length - 1];
     }
+    return undefined;
+  }
+
+  const getDeltaForPathname = (pathname: string): Number | undefined => {
+    let max = locationHistory.length;
+    for (let i = locationHistory.length; i >= 0; i--) {
+      let routeInfo = locationHistory[i];
+      if (routeInfo.pathname === pathname) {
+        return max - i;
+      }
+    }
+
     return undefined;
   }
 
@@ -214,6 +229,7 @@ export const createLocationHistory = () => {
     update,
     getFirstRouteInfoForTab,
     getCurrentRouteInfoForTab,
+    getDeltaForPathname,
     findLastLocation
   }
 }

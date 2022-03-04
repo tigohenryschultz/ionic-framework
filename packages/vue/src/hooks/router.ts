@@ -16,6 +16,7 @@ export interface UseIonRouterResult {
   replace: (location: any, routerAnimation?: AnimationBuilder) => void;
   back: (routerAnimation?: AnimationBuilder) => void;
   forward: (routerAnimation?: AnimationBuilder) => void;
+  goBackTo: (pathname: string) => void;
   navigate: (
     location: any,
     routerDirection?: RouteDirection,
@@ -29,7 +30,7 @@ export interface UseIonRouterResult {
  * while controlling the animation.
  */
 export const useIonRouter = (): UseIonRouterResult => {
-  const { canGoBack, goBack, goForward, handleNavigate } = inject('navManager') as any;
+  const { canGoBack, goBack, goBackTo, goForward,  handleNavigate } = inject('navManager') as any;
 
   const navigate = (
     location: any,

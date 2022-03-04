@@ -377,6 +377,15 @@ export const createIonRouter = (opts: IonicVueRouterOptions, router: Router) => 
     };
   }
 
+  const goBackTo = (pathName: string) => {
+    let delta = locationHistory.getDeltaForPathname(pathName);
+    if(delta !== undefined){
+      router.go(-delta);
+    }
+
+    return false;
+  }
+
   const goBack = (routerAnimation?: AnimationBuilder) => {
     setIncomingRouteParams('pop', 'back', routerAnimation);
     router.back()
@@ -403,6 +412,7 @@ export const createIonRouter = (opts: IonicVueRouterOptions, router: Router) => 
     changeTab,
     registerHistoryChangeListener,
     goBack,
+    goBackTo,
     goForward
   }
 }
